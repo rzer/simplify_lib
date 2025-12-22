@@ -6,7 +6,7 @@ class DelayedCall{
     static final List<DelayedCall> _toCall = [];
     static DateTime nearestCheck = minDateTime();
     
-static void once(double seconds, Function() f, {bool unsafe = false}) => _add(seconds,f, true, unsafe);
+    static void once(double seconds, Function() f, {bool unsafe = false}) => _add(seconds,f, true, unsafe);
     static void every(double seconds, Function() f, {bool unsafe = false}) => _add(seconds,f, false, unsafe);
 
     static void _add(double second, Function() f, bool onlyOnce, bool unsafe){

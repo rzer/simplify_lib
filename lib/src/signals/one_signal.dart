@@ -25,8 +25,8 @@ class OneSignal<T1>{
     return debouncer;
   }
 
-  void delayedFire(T1 p1, {Object? tag}){
-    DelayedCall.once(0, () => fire(p1, tag: tag));
+  void delayedFire(T1 p1, {Object? tag, double after = 0}){
+    DelayedCall.once(after, () => fire(p1, tag: tag));
   }
   
   void fire(T1 p1, {Object? tag}){

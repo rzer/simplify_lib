@@ -27,8 +27,8 @@ class VoidSignal{
     return debouncer;
   }
 
-  void delayedFire({Object? tag}){
-    DelayedCall.once(0, () => fire(tag: tag));
+  void delayedFire({Object? tag, double after = 0}){
+    DelayedCall.once(after, () => fire(tag: tag));
   }
 
   void fire({Object? tag}){

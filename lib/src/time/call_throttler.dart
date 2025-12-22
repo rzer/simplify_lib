@@ -1,6 +1,6 @@
 import 'package:simplify_lib/src/time/call_delayed.dart';
 
-//Call handler no more than n seconds
+//Call handler no more than 1 time per n seconds
 class VoidThrottler {
 
   final double interval;

@@ -1,2 +1,91 @@
 # simplify_lib
 Simple dart utilities to make life better
+
+# Initialization
+
+```dart
+import 'package:simplify_lib/time.dart';
+
+//Support console or flutter apps
+Time.start(fps);
+```
+
+## Tween
+
+Idea from https://github.com/shohei909/tweenx/tree/master/src/tweenxcore/tweenxcore
+
+Based on function closures. The Record type is used for conveniently changing properties from and to
+
+```dart
+import 'package:simplify_lib/tween.dart';
+
+Tween testTween(){
+
+    var xCoord = (0.0, 100.0);
+
+    return Tween.play(2, (t){
+        obj.x = xCoord.ulerp(quadIn(t.rate));
+    });
+  
+}
+
+```
+
+You could use `record.lerp` - lerp clamped, `record.ulerp` - lerp unclamped extensions.
+
+All standart tween function are supported. Also you could use enum values:
+```dart
+    var easeFunc = Easings.easeBounceInOut;
+    obj.x = xCoord.ulerp(easeFunc(t.rate));
+```
+
+## DelayedCalls
+
+```dart
+import 'package:simplify_lib/calls.dart';
+
+DelayedCall.once(2.0, calledOnceAfterTwoSeconds);
+DelayedCall.every(0.1, calledEvery10MsWithoutTryCatch, unsafe:true);
+```
+
+## Signals
+
+Observer pattern realization. Support one, two or void arguments.
+
+```dart
+import 'package:simplify_lib/tween.dart';
+
+var signal = OneSignal<string>();
+signal.once(calledOnlyOnce);
+signal.add(calledEveryFireFirstly, first:true);
+signal.addThrottled(calledOncePerSecond, 1.0);
+signal.addDebounced(calledAfterInactivityWithLatestValue, 1.0);
+
+//dispatch event
+signal.fire("first value");
+signal.delayedFire("second value", after:0.5); 
+signal.delayedFire("third value", after:1.1); 
+```
+## Ticker
+
+Standard signals to update something every frame, or every second. It's convinient way to tick all timers simultaneously.
+
+```dart
+import 'package:simplify_lib/time.dart';
+
+Ticker.onEveryTime.add(handleTime);
+Ticker.onEveryFrame.add(handleFrame);
+Ticker.onEverySecond.add(handleSecond);
+
+void handleTime(double dSeconds){
+    ///when you need time from last frame
+}
+
+void handleFrame(){
+    ///just need to update something every frame
+}
+
+void handleSecond(){
+    ///called when second changed
+}
+```
