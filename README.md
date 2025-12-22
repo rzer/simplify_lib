@@ -56,8 +56,8 @@ You can split execution to multiple branches after first tween:
 
 ```dart
 Tween.play(0)
-    .split(Tween.play()....)
-    .split(Tween.play()...);
+    .split(Tween.create()....)
+    .split(Tween.create()...);
 ```
 
 You can pass to the tween a time scaler object responsible for the time dilation effects:
@@ -97,6 +97,14 @@ signal.addDebounced(calledAfterInactivityWithLatestValue, 1.0);
 signal.fire("first value");
 signal.delayedFire("second value", after:0.5); 
 signal.delayedFire("third value", after:1.1); 
+signal.fire("cancel");
+
+void calledEveryFireFirstly(String text){
+    if (text == "cancel") {
+        // Subsequent listeners in this 'fire' cycle won't be called
+        signal.removeAll(); 
+    }
+}
 ```
 ## Ticker
 
