@@ -1,0 +1,11 @@
+
+include: package:lints/recommended.yaml
+
+analyzer:
+  # Исключаем файл с Flutter-реализацией из проверки
+  exclude:
+    - lib/src/time/time_flutter.dart
+
+  # Опционально: отключаем специфические правила для этого файла
+  errors:
+    uri_does_not_exist: ignore
