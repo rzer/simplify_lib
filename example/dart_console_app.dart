@@ -12,7 +12,7 @@ void main(List<String> arguments) {
   
   var t = Tween.play(2, (t){
 
-    timeScaler.timeScale = timeScale.ulerp(sineIn(t.rate));
+    timeScaler.timeScale = timeScale.ulerp(quadIn(t.rate));
     print("rate ${t.rate}, timeScale: ${timeScaler.timeScale}");
 
   }, timeScaler:timeScaler).wait(1).next(1, (t){

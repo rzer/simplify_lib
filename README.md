@@ -12,14 +12,14 @@ Time.start(fps);
 
 ## Tween
 
-Idea from https://github.com/shohei909/tweenx/tree/master/src/tweenxcore/tweenxcore
+Simpliest tweener based on function closures. The `Record` type is used for conveniently changing properties from and to
 
-Based on function closures. The Record type is used for conveniently changing properties from and to
+Idea from https://github.com/shohei909/tweenx/tree/master/src/tweenxcore/tweenxcore
 
 ```dart
 import 'package:simplify_lib/tween.dart';
 
-Tween testTween(){
+Tween moveObj(){
 
     var xCoord = (0.0, 100.0);
 
@@ -37,6 +37,33 @@ All standart tween function are supported. Also you could use enum values:
 ```dart
     var easeFunc = Easings.easeBounceInOut;
     obj.x = xCoord.ulerp(easeFunc(t.rate));
+```
+
+You can create tween sequences using:
+
+```dart
+Tween.play(1,firstUpdateFunc)
+    .wait(1.2)
+    .then(firstCompleteFunc)
+    .next(1, secondTweenFunc);
+```
+
+You can split execution to multiple branches after first tween:
+
+```dart
+Tween.play(0)
+    .split(Tween.play()....)
+    .split(Tween.play()...);
+```
+
+You can pass to the tween a time scaler object responsible for the time dilation effects:
+
+```dart
+
+var enemyUnitsTimeScaler = TimeScaler(1.0);
+Tween.play(1, moveEnemyUnits, timeScaler:timeScenemyUnitsTimeScaleraler);
+...
+enemyUnitsTimeScaler.timeScale = 0.1;
 ```
 
 ## DelayedCalls

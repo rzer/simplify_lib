@@ -26,8 +26,8 @@ class TwoSignal<T1, T2>{
     return debouncer;
   }
 
-  void delayedFire(T1 p1, T2 p2, {Object? tag}){
-    DelayedCall.once(0, () => fire(p1, p2, tag: tag));
+  void delayedFire(T1 p1, T2 p2, {Object? tag, double after = 0}){
+    DelayedCall.once(after, () => fire(p1, p2, tag: tag));
   }
 
   void fire(T1 p1, T2 p2, {Object? tag}){

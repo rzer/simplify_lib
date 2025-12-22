@@ -27,10 +27,7 @@ class Tween{
   }
 
   static Tween play(double duration, TweenHandler? updateHandler, {TimeScaler? timeScaler}){
-    var t = Tween();
-    t._duration = duration;
-    t.updateHandler = updateHandler;
-    t._timeScaler = timeScaler;
+    var t = create(duration, updateHandler, timeScaler: timeScaler);
     return t.start();
   }
  
