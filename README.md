@@ -89,3 +89,18 @@ void handleSecond(){
     ///called when second changed
 }
 ```
+
+## Debouncer
+
+```dart
+// Create 0.5 delay debounce
+final searchDebouncer = OneDebouncer<String>(0.5, (text) {
+  print("Send to server $text");
+});
+
+...
+
+TextField(
+  onChanged: searchDebouncer.call,
+)
+```
