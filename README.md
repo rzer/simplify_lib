@@ -3,11 +3,15 @@ Simple dart utilities to make life better
 
 # Initialization
 
+The library uses conditional imports. It automatically detects if it's running in a Flutter app or a pure Dart CLI app, so you don't need to change your code.
+
 ```dart
 import 'package:simplify_lib/time.dart';
 
 //Support console or flutter apps
 Time.start(fps);
+// ... later
+Time.stop();
 ```
 
 ## Tween
@@ -61,8 +65,9 @@ You can pass to the tween a time scaler object responsible for the time dilation
 ```dart
 
 var enemyUnitsTimeScaler = TimeScaler(1.0);
-Tween.play(1, moveEnemyUnits, timeScaler:timeScenemyUnitsTimeScaleraler);
-...
+Tween.play(1, moveEnemyUnits, timeScaler:enemyUnitsTimeScaler);
+
+// Slow down only these specific tweens
 enemyUnitsTimeScaler.timeScale = 0.1;
 ```
 
@@ -72,7 +77,7 @@ enemyUnitsTimeScaler.timeScale = 0.1;
 import 'package:simplify_lib/calls.dart';
 
 DelayedCall.once(2.0, calledOnceAfterTwoSeconds);
-DelayedCall.every(0.1, calledEvery10MsWithoutTryCatch, unsafe:true);
+DelayedCall.every(0.1, calledEvery100MsWithoutTryCatch, unsafe:true);
 ```
 
 ## Signals
@@ -80,7 +85,7 @@ DelayedCall.every(0.1, calledEvery10MsWithoutTryCatch, unsafe:true);
 Observer pattern realization. Support one, two or void arguments.
 
 ```dart
-import 'package:simplify_lib/tween.dart';
+import 'package:simplify_lib/signals.dart';
 
 var signal = OneSignal<string>();
 signal.once(calledOnlyOnce);
@@ -120,6 +125,8 @@ void handleSecond(){
 ## Debouncer
 
 ```dart
+import 'package:simplify_lib/calls.dart';
+
 // Create 0.5 delay debounce
 final searchDebouncer = OneDebouncer<String>(0.5, (text) {
   print("Send to server $text");
