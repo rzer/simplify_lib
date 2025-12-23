@@ -90,7 +90,7 @@ import 'package:simplify_lib/signals.dart';
 var signal = OneSignal<string>();
 signal.once(calledOnlyOnce);
 signal.add(calledEveryFireFirstly, first:true);
-signal.addThrottled(calledOncePerSecond, 1.0);
+signal.addThrottled(calledNoMoreThanOncePerSecond, 1.0);
 signal.addDebounced(calledAfterInactivityWithLatestValue, 1.0);
 
 //dispatch event
