@@ -5,6 +5,7 @@ class Ticker{
   static OneSignal<double> onEveryTime = .new();
   static VoidSignal onEveryFrame = .new();
   static VoidSignal onEverySecond = .new();
+  static VoidSignal onLateEveryFrame = .new();
 
   static double _secondProgress = 0;
 
@@ -19,5 +20,7 @@ class Ticker{
       onEverySecond.fire();
     }
   }
+
+  static void lateTick(double seconds) => onLateEveryFrame.fire();
 
 }

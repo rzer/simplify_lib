@@ -10,6 +10,10 @@ class VoidDebouncer {
 
   void _execute() => action();
   void call()=> DelayedCall.once(delay, _execute);
+
+  void cancel(){
+    DelayedCall.remove(_execute);
+  }
 }
 
 class OneDebouncer<T> {
@@ -26,6 +30,11 @@ class OneDebouncer<T> {
   void call(T value) {
     _lastValue = value; 
     DelayedCall.once(delay, _execute);
+  }
+
+  void cancel(){
+    DelayedCall.remove(_execute);
+    _lastValue = null;
   }
 }
 
@@ -45,5 +54,11 @@ class TwoDebouncer<T1, T2> {
     _lastValue1 = value1;
     _lastValue2 = value2;
     DelayedCall.once(delay, _execute);
+  }
+
+  void cancel(){
+    DelayedCall.remove(_execute);
+    _lastValue1 = null;
+    _lastValue2 = null;
   }
 }

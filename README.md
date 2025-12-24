@@ -116,18 +116,12 @@ import 'package:simplify_lib/time.dart';
 Ticker.onEveryTime.add(handleTime);
 Ticker.onEveryFrame.add(handleFrame);
 Ticker.onEverySecond.add(handleSecond);
+Ticker.onLateEveryFrame.add(handleLate);
 
-void handleTime(double dSeconds){
-    ///when you need time from last frame
-}
-
-void handleFrame(){
-    ///just need to update something every frame
-}
-
-void handleSecond(){
-    ///called when second changed
-}
+void handleTime(double dSeconds){} //frame update with dt argument
+void handleFrame(){} //just need to update something every frame
+void handleSecond(){} //called when second changed
+void handleLate(){} //called when all others ticks, dellayed calls updated
 ```
 
 ## Debouncer
@@ -145,6 +139,9 @@ final searchDebouncer = OneDebouncer<String>(0.5, (text) {
 TextField(
   onChanged: searchDebouncer.call,
 )
+
+//when disposed
+searchDebouncer.cancel();
 ```
 
 ## Throttler
@@ -159,6 +156,9 @@ ElevatedButton(
   onPressed: submitThrottler.call,
   child: Text("Submit"),
 )
+
+//later
+submitThrottler.cancel();
 ```
 
 You can combine throttle with debounce functionality:
@@ -167,5 +167,8 @@ final cursorPosition = TwoThrottler<double,double>(0.5, sendCursorPosition, isTr
 
 cursorPosition.call(1,1); //this will send immediately
 cursorPosition.call(1,2); //this will not send
-cursorPosition.call(3,3); //this will send after 0.5 seconds as trailing value
+cursorPosition.call(3,3); //this will send after 0.5 seconds as trailing
+
+//later
+cursorPosition.cancel();
 ```
