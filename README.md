@@ -146,3 +146,26 @@ TextField(
   onChanged: searchDebouncer.call,
 )
 ```
+
+## Throttler
+
+```dart
+final submitThrottler = VoidThrottler(2.0, () {
+  print("Form submitted");
+});
+
+// Even if clicked 10 times, prints only once every 2 seconds
+ElevatedButton(
+  onPressed: submitThrottler.call,
+  child: Text("Submit"),
+)
+```
+
+You can combine throttle with debounce functionality:
+```dart
+final cursorPosition = TwoThrottler<double,double>(0.5, sendCursorPosition, isTrailing:true);
+
+cursorPosition.call(1,1); //this will send immediately
+cursorPosition.call(1,2); //this will not send
+cursorPosition.call(3,3); //this will send after 0.5 seconds as trailing value
+```
