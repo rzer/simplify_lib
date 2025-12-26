@@ -16,6 +16,6 @@ abstract class Time {
     Ticker.tick(seconds);
     DelayedCall.tick(seconds);
     TimeScaler.tick(seconds);
-    Ticker.lateTick(seconds)
+    Ticker.lateTick(seconds);
   }
 }
